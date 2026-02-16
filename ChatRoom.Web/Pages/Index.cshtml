@@ -1,0 +1,84 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Orleans Chat Room";
+}
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <!-- Login Panel (shown initially) -->
+        <div id="loginPanel" class="col-12 d-flex align-items-center justify-content-center">
+            <div class="card shadow" style="width: 400px;">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">
+                        <i class="bi bi-chat-dots-fill"></i> Orleans Chat Room
+                    </h2>
+                    <div class="mb-3">
+                        <label for="nicknameInput" class="form-label">Your Nickname</label>
+                        <input type="text" class="form-control" id="nicknameInput" placeholder="Enter your nickname" maxlength="50">
+                    </div>
+                    <div class="mb-3">
+                        <label for="channelInput" class="form-label">Channel Name</label>
+                        <input type="text" class="form-control" id="channelInput" placeholder="Enter channel name" maxlength="50" value="general">
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="joinBtn">
+                        <i class="bi bi-box-arrow-in-right"></i> Join Channel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Panel (shown after login) -->
+        <div id="chatPanel" class="col-12 d-none">
+            <div class="row h-100">
+                <!-- Sidebar -->
+                <div class="col-md-3 bg-light border-end d-flex flex-column" style="height: 100vh;">
+                    <div class="p-3 border-bottom bg-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-hash"></i> <span id="currentChannel">general</span>
+                        </h5>
+                        <small class="text-muted">Signed in as <strong id="currentNickname"></strong></small>
+                    </div>
+                    <div class="p-3 flex-grow-1 overflow-auto">
+                        <h6 class="text-uppercase text-muted mb-2">
+                            <i class="bi bi-people-fill"></i> Online Members (<span id="memberCount">0</span>)
+                        </h6>
+                        <ul id="membersList" class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="p-3 border-top bg-white">
+                        <button type="button" class="btn btn-outline-danger w-100" id="leaveBtn">
+                            <i class="bi bi-box-arrow-left"></i> Leave Channel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Chat Area -->
+                <div class="col-md-9 d-flex flex-column" style="height: 100vh;">
+                    <!-- Messages Container -->
+                    <div id="messagesContainer" class="flex-grow-1 overflow-auto p-3 bg-light">
+                        <div id="messagesList">
+                        </div>
+                    </div>
+
+                    <!-- Message Input -->
+                    <div class="p-3 border-top bg-white">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="messageInput"
+                                   placeholder="Type your message..." maxlength="500">
+                            <button class="btn btn-primary" type="button" id="sendBtn">
+                                <i class="bi bi-send-fill"></i> Send
+                            </button>
+                        </div>
+                        <small class="text-muted">Press Enter to send</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+}
